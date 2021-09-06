@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "509547133106",
+    "project_id": "gk-weather",
+    "storage_bucket": "gk-weather.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509547133106:android:caef5f1216948e15bd71ab",
+        "android_client_info": {
+          "package_name": "za.co.clivewatts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509547133106-8jb9icbutp37mlt8jrv6p78360fe9j80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9meUTGoz_SBrDNoYU2ezMy04ddwyRumE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "509547133106-8jb9icbutp37mlt8jrv6p78360fe9j80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509547133106:android:96b13b8a3d1f352abd71ab",
+        "android_client_info": {
+          "package_name": "za.co.clivewatts.gkweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509547133106-8jb9icbutp37mlt8jrv6p78360fe9j80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9meUTGoz_SBrDNoYU2ezMy04ddwyRumE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "509547133106-8jb9icbutp37mlt8jrv6p78360fe9j80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
