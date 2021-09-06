@@ -120,6 +120,7 @@ class GKWeatherActivity : AppCompatActivity(), GKWeatherViewModel, OnMapReadyCal
 
     override fun onMapReady(map: GoogleMap) {
         map.mapType = GoogleMap.MAP_TYPE_HYBRID
+        map.setMinZoomPreference(16f)
         this.map = map
     }
 }
