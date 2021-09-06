@@ -56,7 +56,7 @@ class LocationUpdatesUseCase (
                 super.onLocationResult(locationResult)
                 val location = locationResult.lastLocation
 
-                offer(location)
+                this@callbackFlow.trySend(location).isSuccess
             }
         }
 
