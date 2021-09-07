@@ -10,4 +10,5 @@ interface GKWeatherViewModel {
     abstract fun showApiError(errorMessage: String)
     abstract fun showLoadingError(message: String)
     abstract fun setAddress(address: Address)
+    fun registerGpsBR()
 }

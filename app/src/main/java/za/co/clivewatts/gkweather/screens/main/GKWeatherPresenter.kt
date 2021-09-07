@@ -1,8 +1,10 @@
 package za.co.clivewatts.gkweather.screens.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.location.Address
 import android.location.Geocoder
+import android.location.LocationManager
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.*
@@ -22,6 +24,7 @@ class GKWeatherPresenter() : BasePresenter<GKWeatherViewModel>() {
 
     fun performInit() {
         view()?.checkPermissions()
+        view()?.registerGpsBR()
     }
 
     fun onPermissionGranted() {
@@ -40,13 +43,21 @@ class GKWeatherPresenter() : BasePresenter<GKWeatherViewModel>() {
     private fun getLatLongOneShot() {
         view()?.showLoading()
         mainScope.launch {
-            view()?.initMap()
-            withContext(Dispatchers.IO) {
-                val fusedLocation =  LocationServices.getFusedLocationProviderClient(view() as GKWeatherActivity)
-                LocationUpdatesUseCase(fusedLocation).fetchUpdates().collect {
-                    val weather = repo.getWeather(it.latitude.toString(), it.longitude.toString())
-                    handleResponse(weather)
+            if (locationEnabled()) {
+                view()?.initMap()
+                withContext(Dispatchers.IO) {
+                    val fusedLocation =
+                        LocationServices.getFusedLocationProviderClient(view() as GKWeatherActivity)
+                    LocationUpdatesUseCase(fusedLocation).fetchUpdates().collect {
+                        val weather =
+                            repo.getWeather(it.latitude.toString(), it.longitude.toString())
+                        handleResponse(weather)
+                    }
                 }
+            } else {
+                view()?.showLoading(true)
+                view()?.registerGpsBR()
+                view()?.showLoadingError("Please enable your GPS")
             }
         }
     }
@@ -81,5 +92,11 @@ class GKWeatherPresenter() : BasePresenter<GKWeatherViewModel>() {
         }
 
     }
+
+    private fun locationEnabled() : Boolean {
+        val locationManager = (view() as GKWeatherActivity).getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
+
 
 }

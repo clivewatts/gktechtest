@@ -3,4 +3,5 @@
     <string name="humidity">Humidity</string>
     <string name="cloud_cover">Cloud Cover</string>
     <string name="temp">Temp</string>
+    <string name="empty_data">- - -</string>
 </resources>

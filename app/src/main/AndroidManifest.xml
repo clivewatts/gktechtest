@@ -17,8 +17,9 @@
         android:theme="@style/Theme.GK_Weather"
         android:fullBackupContent="true">
         <activity
+            android:screenOrientation="portrait"
             android:name=".screens.main.GKWeatherActivity"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

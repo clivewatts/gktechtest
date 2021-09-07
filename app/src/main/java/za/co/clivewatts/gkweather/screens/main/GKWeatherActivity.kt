@@ -1,7 +1,11 @@
 package za.co.clivewatts.gkweather.screens.main
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.location.Address
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
@@ -25,6 +29,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import za.co.clivewatts.gkweather.R
 import za.co.clivewatts.gkweather.databinding.ActivityMainBinding
+import android.content.IntentFilter
+
+
+
 
 
 val mainScope = MainScope()
@@ -117,6 +125,30 @@ class GKWeatherActivity : AppCompatActivity(), GKWeatherViewModel, OnMapReadyCal
     override fun setAddress(address: Address) {
         binding.address.text = address.getAddressLine(0)
     }
+
+    override fun registerGpsBR() {
+         val locationSwitchStateReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                if (LocationManager.PROVIDERS_CHANGED_ACTION == intent.action) {
+                    val locationManager =
+                        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                    val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                    val isNetworkEnabled =
+                        locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                    if (isGpsEnabled && isNetworkEnabled) {
+                        presenter.refresh()
+                    } else {
+                        // :(
+                    }
+                }
+            }
+        }
+        val filter = IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
+        filter.addAction(Intent.ACTION_PROVIDER_CHANGED)
+        this.registerReceiver(locationSwitchStateReceiver, filter)
+    }
+
+
 
     override fun onMapReady(map: GoogleMap) {
         map.mapType = GoogleMap.MAP_TYPE_HYBRID
